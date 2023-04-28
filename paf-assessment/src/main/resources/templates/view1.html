@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beers for Style: <span th:text="${styleName}"></span></title>
+</head>
+<body>
+
+<h1 th:text="${styleName}"></h1>
+
+<p>
+  <a href="/">Back</a>
+</p>
+
+<div th:if="${hasBeers}">
+  <table border="1">
+    <thead>
+    <tr>
+      <th>Beer Name</th>
+      <th>Description</th>
+      <th>Brewery</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="beer: ${beers}" th:object="${beer}">
+      <td th:text="*{beerName}"></td>
+      <td th:text="*{beerDescription}"></td>
+      <td>
+        <a th:href="@{/brewery/{breweryId}(breweryId=*{breweryId})}" th:text="*{breweryName}"></a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div th:unless="${hasBeers}">
+  <p>No beers found for this style</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brewery: <span th:text="${brewery?.name}"></span></title>
+</head>
+<body>
+
+<div th:if="${brewery != null}">
+  <h1 th:text="${brewery.name}"></h1>
+
+  <p>
+    <a href="/">Back</a>
+  </p>
+
+  <div th:if="${hasBeers}">
+    <form action="#" th:action="@{/brewery/{breweryId}/order(breweryId=${brewery.breweryId})}" method="post">
+      <table border="1">
+        <thead>
+        <tr>
+          <th>Beer Name</th>
+          <th>Description</th>
+          <th>Order Crates</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="beer: ${beers}" th:object="${beer}">
+          <td th:text="*{beerName}"></td>
+          <td th:text="*{beerDescription}"></td>
+          <td>
+            <input type="number" min="0" max="100" name="beerId" />
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <button type="submit">Place Order</button>
+    </form>
+  </div>
+  <div th:unless="${hasBeers}">
+    <p>No beers found for this brewery</p>
+  </div>
+</div>
+<div th:if="${brewery == null}">
+  <p>Brewery not found</p>
+  <p>
+    <a href="/">Back</a>
+  </p>
+</div>
+
+</body>
+</html>
